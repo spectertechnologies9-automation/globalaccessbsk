@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#070A1A">
-<title>Share your experience</title>
-<meta name="description" content="Tell us how it went — takes about 20 seconds.">
+<meta name="theme-color" content="#060917">
+<title>Share your experience · Global Access</title>
+<meta name="description" content="Tell us how your visit went — takes about 20 seconds.">
 <style>
 /* ═══════════════════════════════════════════════════════════
-   ROYAL DESIGN TOKENS
+   DESIGN TOKENS
    ═══════════════════════════════════════════════════════════ */
 :root{
   /* Midnight base */
-  --night-0:#070A1A;
-  --night-1:#0C1130;
-  --royal:#2A2470;
+  --night-0:#060917;
+  --night-1:#0B1030;
+  --royal:#16326B;
 
   /* Champagne / gold */
   --gold:#E3C27E;
@@ -32,11 +32,10 @@
 
   /* Glass */
   --glass:linear-gradient(180deg, rgba(255,255,255,.062), rgba(255,255,255,.022));
-  --glass-2:rgba(255,255,255,.045);
 
-  /* Business accent — overridden at runtime */
-  --accent:#6C5CE7;
-  --accent-glow:rgba(108,92,231,.30);
+  /* Brand accent */
+  --accent:#1B4FA0;
+  --accent-glow:rgba(27,79,160,.34);
 
   --r-card:30px;
   --r-ctl:16px;
@@ -57,8 +56,8 @@ body{
   color:var(--text);
   background:
     radial-gradient(900px 520px at 50% -8%, var(--royal) 0%, transparent 62%),
-    radial-gradient(700px 420px at 100% 100%, rgba(42,36,112,.55) 0%, transparent 60%),
-    linear-gradient(180deg,#0A0E26 0%, var(--night-0) 100%);
+    radial-gradient(700px 420px at 100% 100%, rgba(22,50,107,.55) 0%, transparent 60%),
+    linear-gradient(180deg,#080D22 0%, var(--night-0) 100%);
   background-attachment:fixed;
   display:flex;flex-direction:column;align-items:center;
   -webkit-font-smoothing:antialiased;
@@ -84,7 +83,6 @@ body{
   animation:cardIn .6s var(--ease) both;
   overflow:hidden;
 }
-/* thin gold crest line across the top edge */
 .card::before{
   content:"";position:absolute;top:0;left:14%;right:14%;height:1px;
   background:linear-gradient(90deg,transparent,var(--gold),transparent);
@@ -93,7 +91,7 @@ body{
 @keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
 /* ═══════════════════════════════════════════════════════════
-   CREST / BUSINESS HEADER
+   CREST / BRAND HEADER
    ═══════════════════════════════════════════════════════════ */
 .crest{text-align:center;margin:0 0 22px}
 .mark{
@@ -108,10 +106,16 @@ body{
 }
 .mark img{width:100%;height:100%;object-fit:cover;display:block}
 .biz-name{
-  font-family:var(--serif);font-size:21px;line-height:1.25;font-weight:500;
+  font-family:var(--serif);font-size:23px;line-height:1.22;font-weight:500;
   letter-spacing:.005em;margin:0;
 }
-.biz-sub{font-size:12.5px;color:var(--text-3);margin:7px 0 0;letter-spacing:.01em}
+.branch{
+  display:inline-block;margin:9px 0 0;padding:5px 13px;
+  font-size:12px;line-height:1.4;color:var(--gold);
+  border:1px solid var(--gold-line-soft);border-radius:var(--r-pill);
+  background:rgba(227,194,126,.05);
+}
+.biz-sub{font-size:12.5px;color:var(--text-3);margin:9px 0 0;letter-spacing:.01em}
 
 .rule{
   height:1px;margin:22px 0;
@@ -127,7 +131,7 @@ h2{font-size:18.5px;line-height:1.35;margin:0 0 10px}
 .lede{font-size:14.5px;line-height:1.55;color:var(--text-2);margin:8px 0 0}
 
 /* ═══════════════════════════════════════════════════════════
-   STARS — the hero
+   STARS
    ═══════════════════════════════════════════════════════════ */
 .rate{text-align:center}
 .rate h1{margin-bottom:20px}
@@ -148,7 +152,6 @@ h2{font-size:18.5px;line-height:1.35;margin:0 0 10px}
 @keyframes starPop{0%{transform:scale(1)}45%{transform:scale(1.22)}100%{transform:scale(1)}}
 .star:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-/* one-time gold shimmer sweep across the row */
 .stars-wrap.sweep::after{
   content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);
@@ -165,7 +168,6 @@ h2{font-size:18.5px;line-height:1.35;margin:0 0 10px}
 }
 .verdict.set{color:var(--gold-hi)}
 
-/* compact star strip for the review state */
 .strip{display:flex;justify-content:center;gap:3px;margin:0 0 14px}
 .strip svg{width:17px;height:17px}
 .strip .body{fill:var(--gold);stroke:none}
@@ -181,7 +183,7 @@ h2{font-size:18.5px;line-height:1.35;margin:0 0 10px}
 .label{display:block;font-size:13.5px;font-weight:600;color:var(--text-2);margin:0 0 9px;letter-spacing:.01em}
 .label .opt{font-weight:400;color:var(--text-3)}
 
-textarea,input[type="text"],input[type="url"]{
+textarea,input[type="text"]{
   width:100%;font-family:inherit;font-size:16px;color:var(--text);
   background:rgba(255,255,255,.04);
   border:1px solid rgba(255,255,255,.11);
@@ -250,7 +252,7 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
 .actions{margin-top:20px;display:flex;flex-direction:column;gap:8px}
 
 /* ═══════════════════════════════════════════════════════════
-   PHOTOS — compact
+   PHOTOS
    ═══════════════════════════════════════════════════════════ */
 .photo-row{
   display:flex;align-items:center;gap:12px;width:100%;
@@ -276,7 +278,7 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
 .thumb button{
   position:absolute;top:5px;right:5px;width:26px;height:26px;
   border:0;border-radius:50%;cursor:pointer;
-  background:rgba(7,10,26,.8);color:var(--gold-hi);font-size:15px;line-height:1;
+  background:rgba(6,9,23,.8);color:var(--gold-hi);font-size:15px;line-height:1;
   display:grid;place-items:center;backdrop-filter:blur(4px);
 }
 .thumb button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
@@ -327,33 +329,13 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
 @keyframes seal{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:none}}
 
 /* ═══════════════════════════════════════════════════════════
-   SETUP PANEL (business owner)
-   ═══════════════════════════════════════════════════════════ */
-.setup{
-  margin-top:14px;padding:20px;
-  background:var(--glass);border:1px solid var(--gold-line-soft);border-radius:22px;
-  animation:reveal .4s var(--ease) both;
-}
-.setup h2{font-size:17px;margin-bottom:4px}
-.setup .lede{font-size:13px;margin-bottom:16px}
-.snippet{
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  font-size:11.5px;line-height:1.65;color:var(--gold);
-  background:rgba(0,0,0,.35);border:1px solid var(--gold-line-soft);
-  border-radius:12px;padding:13px;margin:14px 0 0;
-  white-space:pre;overflow-x:auto;
-}
-.ok{font-size:12.5px;color:var(--gold);margin:10px 0 0;min-height:18px}
-
-/* ═══════════════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════════════ */
 .foot{
-  text-align:center;margin-top:auto;padding:22px 8px 4px;
-  font-size:11.5px;color:rgba(127,134,163,.75);letter-spacing:.04em;
+  text-align:center;margin-top:auto;padding:24px 8px 4px;
+  font-size:11.5px;line-height:1.7;color:rgba(127,134,163,.8);letter-spacing:.03em;
 }
-.foot b{font-weight:600;color:var(--text-3)}
-.foot a{color:inherit;text-decoration:none;border-bottom:1px solid var(--gold-line-soft)}
+.foot b{font-weight:600;color:var(--text-3);letter-spacing:.06em}
 
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
@@ -386,14 +368,15 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
 
     <div class="crest">
       <div class="mark" id="mark"></div>
-      <p class="biz-name" id="bizName">Loading…</p>
+      <p class="biz-name" id="bizName">Global Access</p>
+      <p class="branch" id="bizBranch">Banashankari · BDA Complex</p>
       <p class="biz-sub" id="bizSub">Takes about 20 seconds</p>
     </div>
 
     <!-- ── STATE 1: RATE + DYNAMIC REVEAL ─────────────────── -->
     <section id="stateRate">
       <div class="rate">
-        <h1 id="rateTitle">How was your experience?</h1>
+        <h1 id="rateTitle">How was your visit?</h1>
         <div class="stars-wrap" id="starsWrap">
           <div class="stars" id="stars" role="radiogroup" aria-label="Rating out of five stars"></div>
         </div>
@@ -404,8 +387,8 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
       <div class="panel" id="panelHigh">
         <div class="rule"></div>
         <div class="field">
-          <label class="label" for="highText">Tell us about your experience</label>
-          <textarea id="highText" placeholder="Tell us what you loved about your experience..."></textarea>
+          <label class="label" for="highText">Tell us about your visit</label>
+          <textarea id="highText" placeholder="What did you come in for, and how did it go?"></textarea>
         </div>
         <div class="field">
           <div class="chips" id="highChips"></div>
@@ -421,15 +404,15 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
           <div class="thumbs" id="thumbs"></div>
         </div>
         <div class="actions">
-          <button class="btn" id="generateBtn" disabled>✨ Generate My Review</button>
+          <button class="btn" id="generateBtn" disabled>✨ Write my review</button>
         </div>
       </div>
 
       <!-- 1–2 stars -->
       <div class="panel" id="panelLow">
         <div class="rule"></div>
-        <h2>We're sorry your experience wasn't what you expected.</h2>
-        <p class="lede" style="margin-bottom:18px">This goes straight to the owner. It isn't posted publicly.</p>
+        <h2>Sorry your visit didn't go the way it should have.</h2>
+        <p class="lede" style="margin-bottom:18px">This goes straight to the branch manager. It isn't posted publicly.</p>
         <div class="field">
           <label class="label sr" for="lowText">What went wrong?</label>
           <textarea id="lowText" placeholder="What went wrong?"></textarea>
@@ -439,7 +422,7 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
           <input type="text" id="lowContact" placeholder="Phone or email" autocomplete="tel">
         </div>
         <div class="actions">
-          <button class="btn" id="lowBtn" disabled>Send Private Feedback</button>
+          <button class="btn" id="lowBtn" disabled>Send private feedback</button>
         </div>
       </div>
 
@@ -447,9 +430,9 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
       <div class="panel" id="panelMid">
         <div class="rule"></div>
         <h2>Thanks for your feedback.</h2>
-        <p class="lede" style="margin-bottom:18px">How could we make your experience better?</p>
+        <p class="lede" style="margin-bottom:18px">What would have made this visit better?</p>
         <div class="field">
-          <label class="label sr" for="midText">How could we make your experience better?</label>
+          <label class="label sr" for="midText">What would have made this visit better?</label>
           <textarea id="midText" placeholder="In your own words…"></textarea>
         </div>
         <div class="field">
@@ -457,7 +440,7 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
           <input type="text" id="midContact" placeholder="Phone or email" autocomplete="tel">
         </div>
         <div class="actions">
-          <button class="btn" id="midBtn" disabled>Send Feedback</button>
+          <button class="btn" id="midBtn" disabled>Send feedback</button>
         </div>
       </div>
 
@@ -466,7 +449,7 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
         <div class="rule"></div>
         <div class="gen">
           <div class="gen-lines" aria-hidden="true"><i></i><i></i><i></i></div>
-          <p class="gen-status" id="genStatus" role="status">Crafting your review…</p>
+          <p class="gen-status" id="genStatus" role="status">Writing your review…</p>
         </div>
       </div>
     </section>
@@ -474,12 +457,12 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
     <!-- ── STATE 2: GENERATED REVIEW ──────────────────────── -->
     <section id="stateReview" hidden>
       <div class="strip" id="strip" aria-hidden="true"></div>
-      <div class="review-head"><h1>✨ Your Review</h1></div>
+      <div class="review-head"><h1>Your review</h1></div>
       <label class="sr" for="reviewText">Your review — edit it freely</label>
       <textarea id="reviewText"></textarea>
       <p class="photo-note" id="photoNote" hidden><span aria-hidden="true">📸</span><span id="photoNoteText"></span></p>
       <div class="actions">
-        <button class="btn" id="googleBtn">⭐ Continue to Google Reviews</button>
+        <button class="btn" id="googleBtn">⭐ Continue to Google</button>
         <button class="btn-text" id="editBtn">Edit review</button>
       </div>
       <p class="helper" id="helper">Your review will be copied automatically.</p>
@@ -499,23 +482,9 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
 
   </main>
 
-  <!-- ── BUSINESS OWNER SETUP (hidden from customers) ──────── -->
-  <section class="setup" id="setup" hidden aria-labelledby="setupTitle">
-    <h2 id="setupTitle">Google Review Link</h2>
-    <p class="lede">Paste your Google review URL here</p>
-    <label class="sr" for="reviewUrl">Google review URL</label>
-    <input type="url" id="reviewUrl" placeholder="https://productmate.com/google-review-link-generator" inputmode="url" autocomplete="off">
-    <div class="actions">
-      <button class="btn btn-ghost" id="applyUrl">Use this link</button>
-    </div>
-    <p class="ok" id="setupOk"></p>
-    <pre class="snippet" id="snippet"></pre>
-    <p class="lede" style="font-size:12px;margin-top:12px">Applies instantly for this session. Paste the snippet into the <code>businesses</code> object in index.html to make it permanent.</p>
-  </section>
-
   <p class="foot">
-    Powered by <b>Specter Automations</b>
-    <span id="setupLinkWrap" hidden> · <a href="#" id="setupLink">Business setup</a></span>
+    <b>GLOBAL ACCESS</b><br>
+    21st Main Road, Banashankari 2nd Stage · Opposite BDA Complex, Bengaluru
   </p>
 </div>
 
@@ -523,68 +492,40 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
 "use strict";
 
 /* ═══════════════════════════════════════════════════════════
-   1 · BUSINESS CONFIGURATION
-   ═══════════════════════════════════════════════════════════
-   One entry per client. The NFC tag points at:
-      https://reviews.specterautomations.in/?business=clinic123
-
-   👉 PASTE YOUR GOOGLE REVIEW LINK IN `googleReviewUrl` BELOW.
-      Generate it externally (e.g. a review-link generator or
-      Google Business Profile → Ask for reviews), then paste the
-      final URL here. It looks like:
-      https://search.google.com/local/writereview?placeid=ChIJ...
+   1 · BRANCH CONFIGURATION
+   One page, one branch. Everything the branch needs is here.
    ═══════════════════════════════════════════════════════════ */
-const businesses = {
+const BRANCH = {
+  name: "Global Access",
+  branch: "Banashankari · BDA Complex",
+  address: "21st Main Road, Banashankari 2nd Stage · Opposite BDA Complex, Bengaluru",
+  logo: "assets/global-access-logo.png",   // 👈 drop the logo file here; falls back to a "GA" monogram
+  monogram: "GA",
+  noun: "visit",
 
-  clinic123: {
-    name: "Sunrise Dental Care",
-    logo: "assets/clinic-logo.png",
-    primaryColor: "#0E7C86",
-    googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJ__-vIIEVrjsRrr6kyZ-ghLU",   // 👈 YOUR GOOGLE REVIEW LINK
-    noun: "visit",
-    alwaysOfferGoogleLink: false
-  },
+  // 👇 GOOGLE REVIEW LINK FOR THIS BRANCH
+  googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJ__-vIIEVrjsRrr6kyZ-ghLU",
 
-  business456: {
-    name: "Harbour Lane Salon",
-    logo: "assets/business-logo.png",
-    primaryColor: "#B4457A",
-    googleReviewUrl: "PASTE_GOOGLE_REVIEW_URL_HERE",   // 👈 PASTE YOUR GOOGLE REVIEW LINK HERE
-    noun: "appointment",
-    alwaysOfferGoogleLink: false
-  }
-
-};
-
-/* Shown when the URL has no ?business= parameter. */
-const DEFAULT_BUSINESS = {
-  name: "Specter Automations",
-  logo: null,
-  primaryColor: "#6C5CE7",
-  googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJ__-vIIEVrjsRrr6kyZ-ghLU",     // 👈 YOUR GOOGLE REVIEW LINK
-  noun: "experience",
-  demo: true,
+  // Offer the Google link even after a 1–3 star private feedback submission.
   alwaysOfferGoogleLink: false
 };
 
-const PLACEHOLDER_URL = "PASTE_GOOGLE_REVIEW_URL_HERE";
-
 /* Quick-select tags and how each is phrased in a review. */
 const TAGS = {
-  "Friendly staff":  "the staff were friendly",
-  "Great service":   "the service was excellent",
-  "Fast":            "everything was quick",
-  "Professional":    "the team was professional",
-  "Clean":           "the place was spotless",
-  "Great value":     "it was great value"
+  "Helpful staff":    "the staff were helpful",
+  "Great prices":     "the pricing was great",
+  "Genuine products": "the products were genuine",
+  "Quick service":    "everything was quick",
+  "Good selection":   "there was plenty to choose from",
+  "Easy setup":       "they set everything up for me"
 };
 
 /* ═══════════════════════════════════════════════════════════
    2 · BACKEND INTEGRATION POINTS
    The only network boundary. Swap the mock bodies for fetch().
    ═══════════════════════════════════════════════════════════ */
-const SpecterAPI = {
-  /* → POST /api/reviews/generate  { rating, notes, tags, business } */
+const ReviewAPI = {
+  /* → POST /api/reviews/generate  { rating, notes, tags } */
   async generateReview(payload){
     await wait(900 + Math.random()*250);
     return { review: composeReview(payload) };
@@ -610,66 +551,28 @@ const SpecterAPI = {
 /* ═══════════════════════════════════════════════════════════
    3 · STATE + HELPERS
    ═══════════════════════════════════════════════════════════ */
-const state = {
-  business:null, rating:0, tags:[], notes:"", review:"", photos:[], variant:0
-};
+const state = { rating:0, tags:[], notes:"", review:"", photos:[], variant:0 };
 
 const $  = s => document.querySelector(s);
 const $$ = s => Array.prototype.slice.call(document.querySelectorAll(s));
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
 /* ═══════════════════════════════════════════════════════════
-   4 · BUSINESS DETECTION FROM URL + THEMING
+   4 · BRANDING
    ═══════════════════════════════════════════════════════════ */
-function resolveBusiness(){
-  const slug = new URLSearchParams(location.search).get("business");
-  const found = slug && businesses[slug];
-  return found ? Object.assign({ slug:slug }, found) : Object.assign({ slug:null }, DEFAULT_BUSINESS);
-}
-
-function hexToRgb(hex){
-  const h = String(hex || "").replace("#","");
-  const n = h.length === 3 ? h.split("").map(c=>c+c).join("") : h;
-  const v = [parseInt(n.slice(0,2),16), parseInt(n.slice(2,4),16), parseInt(n.slice(4,6),16)];
-  return v.some(isNaN) ? [108,92,231] : v;
-}
-
-function applyTheme(biz){
-  const [r,g,b] = hexToRgb(biz.primaryColor);
-  const s = document.documentElement.style;
-  s.setProperty("--accent", biz.primaryColor || "#6C5CE7");
-  s.setProperty("--accent-glow", `rgba(${r},${g},${b},.34)`);
-  s.setProperty("--royal", `rgb(${Math.round(r*.34+26)},${Math.round(g*.34+22)},${Math.round(b*.40+52)})`);
-}
-
-function initials(name){
-  return name.split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
-}
-
-function initBusiness(){
-  const biz = resolveBusiness();
-  state.business = biz;
-  applyTheme(biz);
-
-  $("#bizName").textContent = biz.name;
-  $("#bizSub").textContent  = biz.demo ? "Demo · add ?business=clinic123 to the link" : "Takes about 20 seconds";
-  $("#rateTitle").textContent = biz.noun === "visit" ? "How was your visit?" : "How was your experience?";
-  document.title = "Share your experience · " + biz.name;
+function initBranding(){
+  $("#bizName").textContent   = BRANCH.name;
+  $("#bizBranch").textContent = BRANCH.branch;
+  document.title = "Share your experience · " + BRANCH.name;
 
   const mark = $("#mark");
-  mark.textContent = initials(biz.name);
-  if (biz.logo){
+  mark.textContent = BRANCH.monogram;
+  if (BRANCH.logo){
     const img = new Image();
     img.alt = "";
     img.onload = () => { mark.textContent = ""; mark.appendChild(img); };
-    img.src = biz.logo;
+    img.src = BRANCH.logo;
   }
-
-  // Setup panel: open with ?setup=1, or via the footer link in demo mode.
-  $("#reviewUrl").value = biz.googleReviewUrl === PLACEHOLDER_URL ? "" : biz.googleReviewUrl;
-  renderSnippet();
-  if (new URLSearchParams(location.search).get("setup") === "1") $("#setup").hidden = false;
-  else $("#setupLinkWrap").hidden = false;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -730,7 +633,7 @@ function setRating(n){
   const wrap = $("#starsWrap");
   wrap.classList.remove("sweep"); void wrap.offsetWidth; wrap.classList.add("sweep");
 
-  SpecterAPI.trackEvent("rating_selected", { rating:n });
+  ReviewAPI.trackEvent("rating_selected", { rating:n });
   openPanel(branchOf(n));
 }
 
@@ -746,7 +649,6 @@ function openPanel(which){
   const el = $(map[which]);
   if (!el) return;
   el.classList.add("open");
-  // Nudge the newly revealed content into view without yanking the stars away.
   setTimeout(() => el.scrollIntoView({ behavior:"smooth", block:"nearest" }), 90);
 }
 
@@ -778,16 +680,16 @@ function validate(){
 }
 
 /* ═══════════════════════════════════════════════════════════
-   7 · MOCK AI WRITER
+   7 · REVIEW WRITER (mock)
    Composes ONLY from the rating, the customer's own words and
-   the tags they picked. Never invents people, services or events.
+   the tags they picked. Never invents people, products or events.
    ═══════════════════════════════════════════════════════════ */
 const OPENERS = {
-  5:["Had a really great experience at {b}.","Genuinely happy with {b}.","Excellent experience at {b}."],
-  4:["Had a good experience at {b}.","Happy with my {n} at {b}.","Good {n} at {b}."]
+  5:["Had a really great experience at {b}, {br}.","Genuinely happy with {b} in {br}.","Excellent {n} to {b}, {br}."],
+  4:["Had a good {n} to {b}, {br}.","Happy with my {n} to {b} in {br}.","Good experience at {b}, {br}."]
 };
 const CLOSERS = {
-  5:["Really happy with the service!","Would definitely recommend.","I'll be back for sure."],
+  5:["Really happy with the service!","Would definitely recommend this branch.","I'll be back for sure."],
   4:["Would recommend.","Happy with how it went.","Worth a visit."]
 };
 
@@ -809,7 +711,12 @@ function tidy(t){
 function composeReview(p){
   const pick = a => a[(p.variant||0) % a.length];
   const parts = [];
-  parts.push(pick(OPENERS[p.rating] || OPENERS[4]).replace("{b}", p.businessName).replace("{n}", p.noun));
+  parts.push(
+    pick(OPENERS[p.rating] || OPENERS[4])
+      .replace("{b}", p.businessName)
+      .replace("{br}", p.branchName)
+      .replace("{n}", p.noun)
+  );
 
   const note = tidy(p.notes);
   if (note) parts.push(note);
@@ -821,7 +728,7 @@ function composeReview(p){
   return parts.join(" ");
 }
 
-const GEN_MSGS = ["Crafting your review…","Polishing your words…","Almost ready…"];
+const GEN_MSGS = ["Writing your review…","Polishing your words…","Almost ready…"];
 
 async function generate(){
   state.notes = $("#highText").value.trim();
@@ -831,25 +738,24 @@ async function generate(){
   const status = $("#genStatus");
   const tick = setInterval(() => { i = (i+1) % GEN_MSGS.length; status.textContent = GEN_MSGS[i]; }, 420);
 
+  const payload = {
+    rating: state.rating, notes: state.notes, tags: state.tags,
+    businessName: BRANCH.name, branchName: "Banashankari",
+    noun: BRANCH.noun, variant: state.variant
+  };
+
   let review;
   try {
-    const res = await SpecterAPI.generateReview({
-      rating: state.rating, notes: state.notes, tags: state.tags,
-      businessName: state.business.name, noun: state.business.noun || "visit",
-      variant: state.variant
-    });
+    const res = await ReviewAPI.generateReview(payload);
     review = res.review;
   } catch (e){
     console.error(e);
-    review = composeReview({
-      rating: state.rating, notes: state.notes, tags: state.tags,
-      businessName: state.business.name, noun: state.business.noun || "visit", variant: 0
-    });
+    review = composeReview(Object.assign({}, payload, { variant:0 }));
   }
   clearInterval(tick);
 
   state.review = review;
-  if (state.photos.length) SpecterAPI.uploadPhotos(state.photos.map(p => p.file));
+  if (state.photos.length) ReviewAPI.uploadPhotos(state.photos.map(p => p.file));
   showReview();
 }
 
@@ -861,7 +767,7 @@ function setState(name){
   $("#stateReview").hidden = name !== "review";
   $("#stateDone").hidden   = name !== "done";
   window.scrollTo({ top:0, behavior:"smooth" });
-  SpecterAPI.trackEvent("state_view", { state:name, rating:state.rating });
+  ReviewAPI.trackEvent("state_view", { state:name, rating:state.rating });
 }
 
 function showReview(){
@@ -890,7 +796,7 @@ function handlePhotoUpload(files){
 
   const skipped = incoming.length - accepted.length;
   renderThumbs(skipped > 0 ? (room <= 0 ? "3 is the limit" : "JPG, PNG or WEBP only") : "");
-  SpecterAPI.trackEvent("photos_selected", { count:state.photos.length });
+  ReviewAPI.trackEvent("photos_selected", { count:state.photos.length });
 }
 
 function removePhoto(i){
@@ -940,14 +846,8 @@ function fallbackCopy(text){
   document.body.removeChild(ta);
 }
 
-function resolvedGoogleUrl(){
-  const url = state.business.googleReviewUrl;
-  return (!url || url === PLACEHOLDER_URL) ? null : url;
-}
-
 async function continueToGoogle(){
   state.review = $("#reviewText").value.trim();
-  const url = resolvedGoogleUrl();
   const helper = $("#helper");
 
   await copyText(state.review);
@@ -956,18 +856,12 @@ async function continueToGoogle(){
     ? "Your review has been copied. Paste it into Google and add your photos."
     : "Your review has been copied. Paste it into Google.";
 
-  SpecterAPI.trackEvent("google_redirect", { rating:state.rating, photos:state.photos.length });
-
-  if (!url){
-    helper.classList.remove("copied");
-    helper.textContent = "No Google review link is set for this business yet. Add it in Business setup.";
-    return;
-  }
+  ReviewAPI.trackEvent("google_redirect", { rating:state.rating, photos:state.photos.length });
 
   setTimeout(() => {
-    window.open(url, "_blank", "noopener");
+    window.open(BRANCH.googleReviewUrl, "_blank", "noopener");
     $("#doneTitle").textContent = "Thank you";
-    $("#doneLede").textContent = "Your review is on your clipboard — paste it into Google. It means a lot to a small business.";
+    $("#doneLede").textContent = "Your review is on your clipboard — paste it into Google. It means a lot to the team at this branch.";
     $("#doneActions").hidden = true;
     setState("done");
   }, 700);
@@ -984,20 +878,20 @@ function sendFeedback(kind){
 
   const payload = {
     type: low ? "private_negative" : "neutral",
-    business: state.business.name,
-    slug: state.business.slug,
+    business: BRANCH.name,
+    branch: BRANCH.branch,
     rating: state.rating,
     comments: $(low ? "#lowText" : "#midText").value.trim(),
     contact: $(low ? "#lowContact" : "#midContact").value.trim(),
     at: new Date().toISOString()
   };
 
-  SpecterAPI.submitFeedback(payload).then(() => {
+  ReviewAPI.submitFeedback(payload).then(() => {
     $("#doneTitle").textContent = "Thank you";
     $("#doneLede").textContent = payload.contact
-      ? "This went straight to the team. Someone will get back to you."
-      : "This went straight to the team. We appreciate you taking the time.";
-    $("#doneActions").hidden = !(state.business.alwaysOfferGoogleLink && resolvedGoogleUrl());
+      ? "This went straight to the branch team. Someone will get back to you."
+      : "This went straight to the branch team. We appreciate you taking the time.";
+    $("#doneActions").hidden = !BRANCH.alwaysOfferGoogleLink;
     setState("done");
   }).catch(() => {
     btn.disabled = false; btn.textContent = original;
@@ -1013,37 +907,10 @@ function sendFeedback(kind){
 }
 
 /* ═══════════════════════════════════════════════════════════
-   12 · BUSINESS SETUP PANEL
-   ═══════════════════════════════════════════════════════════ */
-function renderSnippet(){
-  const b = state.business || DEFAULT_BUSINESS;
-  const slug = (b.slug) || "yourbusiness";
-  $("#snippet").textContent =
-    slug + ": {\n" +
-    '  name: "' + b.name + '",\n' +
-    '  logo: "' + (b.logo || "assets/logo.png") + '",\n' +
-    '  primaryColor: "' + b.primaryColor + '",\n' +
-    '  googleReviewUrl: "' + b.googleReviewUrl + '"\n' +
-    "}";
-}
-
-function applyReviewUrl(){
-  const val = $("#reviewUrl").value.trim();
-  const ok = $("#setupOk");
-  if (!/^https:\/\/\S+$/i.test(val)){
-    ok.textContent = "Enter a full link starting with https://";
-    return;
-  }
-  state.business.googleReviewUrl = val;
-  renderSnippet();
-  ok.textContent = "Applied. The Google button now uses this link.";
-}
-
-/* ═══════════════════════════════════════════════════════════
-   13 · WIRING
+   12 · WIRING
    ═══════════════════════════════════════════════════════════ */
 function init(){
-  initBusiness();
+  initBranding();
   buildStars();
   buildChips();
   renderThumbs("");
@@ -1065,19 +932,9 @@ function init(){
   $("#googleBtn").addEventListener("click", continueToGoogle);
 
   $("#doneGoogle").addEventListener("click", () => {
-    const url = resolvedGoogleUrl();
-    if (url) window.open(url, "_blank", "noopener");
+    window.open(BRANCH.googleReviewUrl, "_blank", "noopener");
     $("#doneActions").hidden = true;
   });
-
-  $("#setupLink").addEventListener("click", e => {
-    e.preventDefault();
-    const p = $("#setup");
-    p.hidden = !p.hidden;
-    if (!p.hidden) $("#reviewUrl").focus();
-  });
-  $("#applyUrl").addEventListener("click", applyReviewUrl);
-  $("#reviewUrl").addEventListener("keydown", e => { if (e.key === "Enter") applyReviewUrl(); });
 }
 
 document.addEventListener("DOMContentLoaded", init);
