@@ -303,7 +303,7 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
    REVIEW STATE
    ═══════════════════════════════════════════════════════════ */
 .review-head{text-align:center;margin:0 0 16px}
-#reviewText{min-height:158px;font-size:16px;line-height:1.62}
+#reviewText{min-height:268px;font-size:16px;line-height:1.62}
 .photo-note{
   display:flex;align-items:center;gap:8px;
   font-size:13.5px;color:var(--gold);margin:11px 0 0;
@@ -463,6 +463,7 @@ textarea::placeholder,input::placeholder{color:var(--text-3)}
       <p class="photo-note" id="photoNote" hidden><span aria-hidden="true">📸</span><span id="photoNoteText"></span></p>
       <div class="actions">
         <button class="btn" id="googleBtn">⭐ Continue to Google</button>
+        <button class="btn-text" id="againBtn">Write a different one</button>
         <button class="btn-text" id="editBtn">Edit review</button>
       </div>
       <p class="helper" id="helper">Your review will be copied automatically.</p>
@@ -510,15 +511,23 @@ const BRANCH = {
   alwaysOfferGoogleLink: false
 };
 
-/* Quick-select tags and how each is phrased in a review. */
-const TAGS = {
-  "Helpful staff":    "the staff were helpful",
-  "Great prices":     "the pricing was great",
-  "Genuine products": "the products were genuine",
-  "Quick service":    "everything was quick",
-  "Good selection":   "there was plenty to choose from",
-  "Easy setup":       "they set everything up for me"
-};
+/* ═══════════════════════════════════════════════════════════
+   KEYWORD POOL
+   Six chips are drawn at random from this pool each time the
+   page loads, so no two reviews start from the same shortlist.
+   Add or remove lines freely — each chip carries the sentences
+   it can turn into further down in SENTENCES.
+   ═══════════════════════════════════════════════════════════ */
+const TAG_POOL = [
+  "Helpful staff", "Good prices", "Genuine products", "Quick service",
+  "Good selection", "Setup help", "No pushy selling", "Knew their stuff",
+  "Proper bill", "Accessories too", "Easy exchange", "Clean store",
+  "Patient with questions", "Good deal", "Sorted my old phone",
+  "Happy with the phone", "Warranty explained", "Easy to find"
+];
+
+const TAGS_SHOWN = 6;
+let TAGS = {};   // rebuilt on every shuffle
 
 /* ═══════════════════════════════════════════════════════════
    2 · BACKEND INTEGRATION POINTS
@@ -655,8 +664,15 @@ function openPanel(which){
 /* ═══════════════════════════════════════════════════════════
    6 · TAGS
    ═══════════════════════════════════════════════════════════ */
+function shuffleTags(){
+  TAGS = {};
+  shuffle(TAG_POOL).slice(0, TAGS_SHOWN).forEach(t => { TAGS[t] = t; });
+  state.tags.length = 0;
+}
+
 function buildChips(){
   const wrap = $("#highChips");
+  wrap.innerHTML = "";
   Object.keys(TAGS).forEach(text => {
     const b = document.createElement("button");
     b.className = "chip"; b.type = "button"; b.textContent = text;
@@ -684,20 +700,153 @@ function validate(){
    Composes ONLY from the rating, the customer's own words and
    the tags they picked. Never invents people, products or events.
    ═══════════════════════════════════════════════════════════ */
-const OPENERS = {
-  5:["Had a really great experience at {b}, {br}.","Genuinely happy with {b} in {br}.","Excellent {n} to {b}, {br}."],
-  4:["Had a good {n} to {b}, {br}.","Happy with my {n} to {b} in {br}.","Good experience at {b}, {br}."]
-};
-const CLOSERS = {
-  5:["Really happy with the service!","Would definitely recommend this branch.","I'll be back for sure."],
-  4:["Would recommend.","Happy with how it went.","Worth a visit."]
+/* Sentence bank. Each chip maps to several ways of saying the
+   same thing, so the same chip almost never produces the same
+   line twice. */
+const SENTENCES = {
+  "Helpful staff": [
+    "The staff here were properly helpful.",
+    "Everyone in the shop was helpful without being over the top.",
+    "The guy who attended to me was really helpful."
+  ],
+  "Good prices": [
+    "Price was better than the other shops I checked.",
+    "Rates are fair, nothing inflated.",
+    "Got it for a good price.",
+    "Pricing was reasonable for what I got."
+  ],
+  "Genuine products": [
+    "Everything is original stock, which is the main thing.",
+    "Genuine products, no doubt about that.",
+    "All original, properly sealed."
+  ],
+  "Quick service": [
+    "Was in and out quickly.",
+    "Didn't have to wait around at all.",
+    "The whole thing took barely any time."
+  ],
+  "Good selection": [
+    "They had a good range to pick from.",
+    "Plenty of options in the shop.",
+    "Lot of models to choose from, so I could actually compare."
+  ],
+  "Setup help": [
+    "They set the whole thing up before I left the shop.",
+    "Helped me move everything over from my old phone.",
+    "Got it all configured for me, didn't have to figure it out myself."
+  ],
+  "No pushy selling": [
+    "No pressure to go for something costlier.",
+    "Nobody was pushing me to buy the expensive one.",
+    "Didn't feel rushed into anything."
+  ],
+  "Knew their stuff": [
+    "They actually know the products properly.",
+    "Could answer everything I asked about the models.",
+    "Clearly know what they're talking about."
+  ],
+  "Proper bill": [
+    "Proper bill given, everything above board.",
+    "Got a full bill, no issues there."
+  ],
+  "Accessories too": [
+    "Picked up a case and a charger at the same time.",
+    "They have accessories as well, so that was sorted in one go."
+  ],
+  "Easy exchange": [
+    "Exchange was handled without any fuss.",
+    "The exchange part was simpler than I expected."
+  ],
+  "Clean store": [
+    "Shop is neat and well kept.",
+    "Clean, organised place."
+  ],
+  "Patient with questions": [
+    "They were patient with all my questions.",
+    "Took the time to explain things properly.",
+    "Didn't mind me asking the same thing twice."
+  ],
+  "Good deal": [
+    "Ended up with a good deal overall.",
+    "Walked out feeling like I got value for money."
+  ],
+  "Sorted my old phone": [
+    "They sorted out my old handset for me too.",
+    "Helped me deal with the old phone as well."
+  ],
+  "Happy with the phone": [
+    "Happy with the phone so far.",
+    "Been using it since and no complaints.",
+    "The phone has been working well."
+  ],
+  "Warranty explained": [
+    "Warranty and service side was explained clearly.",
+    "They went through the warranty properly instead of glossing over it."
+  ],
+  "Easy to find": [
+    "Easy enough to find.",
+    "Simple to locate once you're nearby."
+  ]
 };
 
-function joinList(a){
-  if (a.length === 1) return a[0];
-  if (a.length === 2) return a[0] + " and " + a[1];
-  return a.slice(0,-1).join(", ") + " and " + a[a.length-1];
+/* Openings, fillers and closings — a fresh combination each run. */
+const OPEN = {
+  5: [
+    "Visited {b} in {br} and it was a good experience.",
+    "Went to {b} at {br} last week.",
+    "Really glad I went to {b} in {br}.",
+    "{b} in {br} did a great job.",
+    "Dropped into {b}, {br}, and came away happy.",
+    "Had a really good {n} to {b} in {br}."
+  ],
+  4: [
+    "Went to {b} in {br} recently.",
+    "Had a good {n} to {b}, {br}.",
+    "Visited the {b} shop in {br}.",
+    "{b} in {br} sorted me out.",
+    "Stopped by {b} at {br}."
+  ]
+};
+
+const MIDDLE = [
+  "Was looking around a few shops before this one.",
+  "Had a fair few questions before deciding.",
+  "Went in not really knowing what I wanted.",
+  "Took my time comparing before picking one.",
+  "Wasn't planning to buy the same day, but ended up doing it.",
+  "Asked about a couple of different models before settling."
+];
+
+const CLOSE = {
+  5: [
+    "Would definitely recommend this place.",
+    "Will be going back for my next one.",
+    "Recommend it if you're around this area.",
+    "Good shop, no complaints at all.",
+    "Thanks to the team there.",
+    "Happy with the whole thing."
+  ],
+  4: [
+    "Would recommend.",
+    "Worth a visit if you're nearby.",
+    "Happy with how it went.",
+    "Decent place to buy from.",
+    "No complaints."
+  ]
+};
+
+/* ── helpers ─────────────────────────────────────────────── */
+function pickOne(a){ return a[Math.floor(Math.random()*a.length)]; }
+
+function shuffle(a){
+  const c = a.slice();
+  for (let i=c.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    const t = c[i]; c[i] = c[j]; c[j] = t;
+  }
+  return c;
 }
+
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 
 function tidy(t){
@@ -708,24 +857,52 @@ function tidy(t){
   return s;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   THE WRITER
+   Builds a fresh ~10 line review every single run: the opening,
+   the filler line, the order of the middle sentences and every
+   individual phrasing are all drawn at random. Nothing is
+   claimed that the customer didn't tick or type.
+   ═══════════════════════════════════════════════════════════ */
+const TARGET_LINES = 10;
+
 function composeReview(p){
-  const pick = a => a[(p.variant||0) % a.length];
-  const parts = [];
-  parts.push(
-    pick(OPENERS[p.rating] || OPENERS[4])
+  const lines = [];
+
+  /* 1 · opening */
+  lines.push(
+    pickOne(OPEN[p.rating] || OPEN[4])
       .replace("{b}", p.businessName)
       .replace("{br}", p.branchName)
       .replace("{n}", p.noun)
   );
 
+  /* 2 · the customer's own words, if they wrote any */
   const note = tidy(p.notes);
-  if (note) parts.push(note);
+  if (note) lines.push(note);
 
-  const phrases = p.tags.map(t => TAGS[t] || t.toLowerCase());
-  if (phrases.length) parts.push(cap(joinList(phrases)) + ".");
+  /* 3 · a bit of human filler, most of the time */
+  if (Math.random() < 0.75) lines.push(pickOne(MIDDLE));
 
-  parts.push(pick(CLOSERS[p.rating] || CLOSERS[4]));
-  return parts.join(" ");
+  /* 4 · one line per chip they ticked, in random order */
+  shuffle(p.tags).forEach(tag => {
+    const bank = SENTENCES[tag];
+    lines.push(bank ? pickOne(bank) : cap(tag.toLowerCase()) + ".");
+  });
+
+  /* 5 · top up from unticked chips until it reads about ten
+         lines long, so short selections still give a full review */
+  const used = {};
+  p.tags.forEach(t => { used[t] = true; });
+  const spare = shuffle(Object.keys(SENTENCES).filter(t => !used[t]));
+  while (lines.length < TARGET_LINES - 1 && spare.length){
+    lines.push(pickOne(SENTENCES[spare.pop()]));
+  }
+
+  /* 6 · closing */
+  lines.push(pickOne(CLOSE[p.rating] || CLOSE[4]));
+
+  return lines.join(" ");
 }
 
 const GEN_MSGS = ["Writing your review…","Polishing your words…","Almost ready…"];
@@ -776,6 +953,7 @@ function showReview(){
   for (let i=0;i<state.rating;i++) strip.insertAdjacentHTML("beforeend", starSVG());
 
   $("#reviewText").value = state.review;
+  $("#reviewText").dataset.notes = state.notes;
   const n = state.photos.length;
   $("#photoNote").hidden = n === 0;
   $("#photoNoteText").textContent = n + (n === 1 ? " photo selected" : " photos selected");
@@ -912,12 +1090,13 @@ function sendFeedback(kind){
 function init(){
   initBranding();
   buildStars();
+  shuffleTags();
   buildChips();
   renderThumbs("");
 
   ["#highText","#lowText","#midText"].forEach(s => $(s).addEventListener("input", validate));
 
-  $("#generateBtn").addEventListener("click", () => { state.variant = 0; generate(); });
+  $("#generateBtn").addEventListener("click", generate);
   $("#lowBtn").addEventListener("click", () => sendFeedback("low"));
   $("#midBtn").addEventListener("click", () => sendFeedback("mid"));
 
@@ -928,6 +1107,11 @@ function init(){
     const ta = $("#reviewText");
     ta.focus();
     ta.setSelectionRange(ta.value.length, ta.value.length);
+  });
+  $("#againBtn").addEventListener("click", () => {
+    state.notes = $("#reviewText").dataset.notes || state.notes;
+    setState("rate");
+    generate();
   });
   $("#googleBtn").addEventListener("click", continueToGoogle);
 
